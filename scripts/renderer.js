@@ -51,7 +51,7 @@ class Renderer {
 
     // ctx:          canvas context
     drawSlide1(ctx) {
-
+        this.drawCircle({x:250, y:250}, 100, [255,255,0,255], ctx)
     }
 
     // ctx:          canvas context
@@ -100,6 +100,18 @@ class Renderer {
     // color:        array of int [R, G, B, A]
     // ctx:          canvas context
     drawCircle(center, radius, color, ctx) {
+        let numberpts = this.num_curve_sections/360;
+        let vertices = [];
+        let point = {x: center + (radius*Math.cos(numberpts)), y: center + (radius*Math.sin(numberpts)) };
+        vertices[0] = point;
+        for(let i = 1; i < this.num_curve_sections; i++){
+            point = {x: center + (radius*Math.cos(i*numberpts)), y: center + (radius*Math.sin(i*numberpts)) };
+            vertices[i] = point;
+            console.log(vertices[i-1]);
+            this.drawLine(vertices[i-1], vertices[i], color, ctx);
+
+        }
+
         
     }
 
