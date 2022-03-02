@@ -46,7 +46,7 @@ class Renderer {
 
     // ctx:          canvas context
     drawSlide0(ctx) {
-        
+        this.drawRectangle({x:100, y:100}, {x:500, y:500}, [255,255,0,255], ctx);
     }
 
     // ctx:          canvas context
@@ -70,6 +70,29 @@ class Renderer {
     // ctx:          canvas context
     drawRectangle(left_bottom, right_top, color, ctx) {
         
+        let vertex0 = {x: right_top.x, y:left_bottom.y};
+        this.drawLine(left_bottom, vertex0, color, ctx);
+        this.drawLine(vertex0, right_top, color, ctx);
+
+        let vertex1 = {x: left_bottom.x, y:right_top.y};
+        this.drawLine(right_top, vertex1, color, ctx);
+        this.drawLine(vertex1, left_bottom, color, ctx);
+        let vertices = [vertex0, vertex1, left_bottom, right_top];
+        if(this.show_points){
+            for(let i = 0; i<vertices.length; i++){
+                this.drawPointRectangle({x:vertices[i].x-5, y:vertices[i].y-5},{x:vertices[i].x+5, y:vertices[i].y+5}, [0,0,0,255], ctx);
+            }
+        }
+    }
+    drawPointRectangle(left_bottom, right_top, color, ctx) {
+        console.log(left_bottom.x);
+        let vertex0 = {x: right_top.x, y:left_bottom.y};
+        this.drawLine(left_bottom, vertex0, color, ctx);
+        this.drawLine(vertex0, right_top, color, ctx);
+
+        let vertex1 = {x: left_bottom.x, y:right_top.y};
+        this.drawLine(right_top, vertex1, color, ctx);
+        this.drawLine(vertex1, left_bottom, color, ctx);
     }
 
     // center:       object ({x: __, y: __})
